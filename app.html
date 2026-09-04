@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMS Dashboard — Deweg Engineering</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<!-- floating mobile menu button (drawer is off-canvas, so its own toggle is unreachable) -->
+<button class="mob-menu" onclick="toggleSidebar()" aria-label="Open menu">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="app">
+
+  <!-- ======= SIDEBAR ======= -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <img src="assets/logo.svg" alt="Deweg logo" style="width:40px;height:40px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,.96);padding:5px;flex-shrink:0">
+      <div>
+        <div class="nm">DEWEG <span>ENG.</span></div>
+        <small>HRMS Suite</small>
+      </div>
+      <button class="sb-toggle" onclick="toggleSidebar()" title="Collapse menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-label">Main</div>
+      <a class="sb-link active" data-view="dashboard"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="txt">Dashboard</span></a>
+      <a class="sb-link" data-view="employee"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="txt">Employee Master</span></a>
+      <a class="sb-link" data-view="leave"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg></span><span class="txt">Leave Application</span></a>
+      <a class="sb-link" data-view="report"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></span><span class="txt">Leave Report</span></a>
+      <div class="sb-label">Settings</div>
+      <a class="sb-link" data-view="config"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span class="txt">Configuration</span></a>
+      <a class="sb-link" data-view="help"><span class="ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span class="txt">Help &amp; Support</span></a>
+    </nav>
+    <div class="sb-user">
+      <div class="avatar">RS</div>
+      <div>
+        <div class="nm">R. Sharma</div>
+        <div class="rl">Reporting Manager</div>
+      </div>
+      <a href="#" onclick="logout();return false" title="Sign out" style="margin-left:auto;color:#8fa3c4;font-size:16px">⏻</a>
+    </div>
+  </aside>
+
+  <!-- ======= MAIN ======= -->
+  <main class="main">
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="view active" id="view-dashboard">
+      <div class="topbar">
+        <div>
+          <div class="crumb">Home / Dashboard</div>
+          <h2 id="greet">Good Morning 👋</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline btn-sm">🔔 Notifications</button>
+          <button class="btn btn-primary btn-sm" onclick="showView('leave')">+ Apply Leave</button>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat" style="--acc:var(--gold)"><div class="lbl">Team Strength</div><div class="val">42</div><div class="sub">Across 3 divisions</div></div>
+        <div class="stat" style="--acc:var(--warning)"><div class="lbl">Pending Approvals</div><div class="val">3</div><div class="sub">Action required</div></div>
+        <div class="stat" style="--acc:var(--success)"><div class="lbl">Approved This Month</div><div class="val">17</div><div class="sub">+4 vs last month</div></div>
+        <div class="stat" style="--acc:var(--info)"><div class="lbl">On Leave Today</div><div class="val">4</div><div class="sub">2 PL · 1 CL · 1 AL</div></div>
+      </div>
+
+      <div class="card" style="margin-bottom:22px">
+        <div class="card-title" id="dash-title">My Recent Leave Requests</div>
+        <div class="card-sub" id="dash-sub">Your latest leave applications and their current status</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Request No</th><th>Requested For</th><th>Leave Type</th><th>Start Date</th><th>End Date</th><th>No of Days</th><th>Status</th><th>Requested By</th></tr></thead>
+            <tbody id="dash-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EMPLOYEE MASTER ============ -->
+    <section class="view" id="view-employee">
+      <div class="topbar">
+        <div>
+          <div class="crumb">Home / Employee Master</div>
+          <h2>Employee Master</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-primary" onclick="openModal()">+ Add New Employee</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head"><span class="bar"></span><h3>Employee List</h3><span class="line"></span></div>
+        <div class="toolbar">
+          <div class="field" style="min-width:220px"><label>Search</label><input class="input" id="emp-search" placeholder="Name, ID, email…" oninput="renderEmployees()"></div>
+          <div class="field"><label>Division</label>
+            <select class="select" id="emp-fdiv" onchange="renderEmployees()"><option value="">All Divisions</option><option>Engineering</option><option>Manufacturing</option><option>Quality</option><option>Projects</option></select>
+          </div>
+          <div class="field"><label>Department</label>
+            <select class="select" id="emp-fdept" onchange="renderEmployees()"><option value="">All Departments</option><option>Mechanical</option><option>Electrical</option><option>Civil</option><option>Design</option><option>HR &amp; Admin</option><option>Finance</option></select>
+          </div>
+          <div class="field"><label>Status</label>
+            <select class="select" id="emp-fstat" onchange="renderEmployees()"><option value="">All</option><option>Online</option><option>Off Line</option></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Emp No</th><th>Employee Name</th><th>Division</th><th>Department</th><th>Email ID</th><th>Reporting Manager</th><th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="emp-table"></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div class="entries">Show
+            <select class="select entries" id="emp-entries"><option>10</option><option>25</option><option>50</option></select>
+            entries
+          </div>
+          <div class="pages">
+            <button class="page-btn">«</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">»</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEAVE APPLICATION ============ -->
+    <section class="view" id="view-leave">
+      <div class="topbar">
+        <div>
+          <div class="crumb">Home / Leave Application</div>
+          <h2>Leave Application Form</h2>
+        </div>
+      </div>
+
+      <div class="leave-layout">
+      <div class="leave-formcol">
+
+      <div class="card">
+        <div class="section-head"><span class="bar"></span><h3>Leave Request Details</h3><span class="line"></span></div>
+        <div class="form-grid">
+          <div class="field"><label>Leave Category <span class="req">*</span></label>
+            <select class="select" id="lv-cat"><option value="">— Select —</option><option>PL</option><option>CL</option><option>AL</option></select>
+          </div>
+          <div class="field"><label>Leave Balance</label><input class="input" id="lv-bal" value="—" readonly></div>
+
+          <div class="field"><label>Start Date <span class="req">*</span></label><input class="input" type="date" id="lv-start" onchange="calcDays()"></div>
+          <div class="field"><label>Type <span class="req">*</span></label>
+            <select class="select" id="lv-stype" onchange="calcDays()"><option>Full Day</option><option>Half Day</option></select>
+          </div>
+          <div class="field"><label>End Date <span class="req">*</span></label><input class="input" type="date" id="lv-end" onchange="calcDays()"></div>
+          <div class="field"><label>Type <span class="req">*</span></label>
+            <select class="select" id="lv-etype" onchange="calcDays()"><option>Full Day</option><option>Half Day</option></select>
+          </div>
+          <div class="field"><label>No of Days Applied</label><input class="input" id="lv-days" value="0.0" readonly></div>
+        </div>
+
+        <div class="field" style="margin-top:18px">
+          <label>Reason <span class="req">*</span></label>
+          <textarea class="textarea" id="lv-reason" placeholder="Briefly describe the reason for your leave…"></textarea>
+        </div>
+
+        <div class="section-head"><span class="bar"></span><h3>Voice Input</h3><span class="line"></span></div>
+        <div class="mic-row" onclick="toggleMic()">
+          <button class="mic-btn" type="button" id="mic-btn">🎙️</button>
+          <div>
+            <strong style="font-size:14px">Click on the Microphone Icon and Begin Speaking</strong>
+            <div class="hint">Your speech will be typed into the Reason field automatically. Click again to stop.</div>
+          </div>
+        </div>
+
+        <div class="section-head"><span class="bar"></span><h3>Supporting Documents</h3><span class="line"></span></div>
+        <div class="mic-row" style="cursor:pointer;justify-content:center;flex-direction:column;text-align:center;padding:22px" onclick="document.getElementById('lv-attach').click()">
+          <div style="font-size:26px">📎</div>
+          <strong style="margin-top:6px">Click to attach supporting documents</strong>
+          <span class="hint">PDF, JPG, PNG, DOCX — max 10 MB each</span>
+          <input type="file" id="lv-attach" multiple hidden onchange="showFiles(this)">
+        </div>
+        <div id="file-list" style="margin-top:10px"></div>
+
+        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px">
+          <button class="btn btn-outline" type="reset">Clear</button>
+          <button class="btn btn-primary" onclick="submitLeave()">Submit Application ✓</button>
+        </div>
+      </div><!-- /form card -->
+      </div><!-- /formcol -->
+
+      <!-- Sticky side card: employee details + leave balance -->
+      <aside class="leave-side">
+        <div class="side-card" id="side-card">
+          <div class="sc-head" onclick="toggleSideCard()" title="Click to hide / show details">
+            <div class="pc-avatar" id="lf-avatar">—</div>
+            <div class="sc-name-row">
+              <div class="pc-name" id="lf-name2">—</div>
+              <div class="pc-role" id="lf-no2"></div>
+            </div>
+            <div class="sc-bal">
+              <span class="mini-pill" style="--c:#7c3aed;--cbg:#ede9fe">PL <b id="pil-pl">—</b></span>
+              <span class="mini-pill" style="--c:#16a34a;--cbg:#dcfce7">CL <b id="pil-cl">—</b></span>
+              <span class="mini-pill" style="--c:#ea580c;--cbg:#ffedd5">AL <b id="pil-al">—</b></span>
+            </div>
+            <svg class="sc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg>
+          </div>
+
+          <div class="sc-collapse">
+            <div>
+              <div class="sc-body">
+            <div class="bp-title" style="color:var(--muted)">Employee Details</div>
+            <div class="pc-grid" style="border:1px solid var(--border);border-radius:12px;overflow:hidden">
+              <div class="pc-item"><span>Employee Number</span><strong id="lf-no"></strong></div>
+              <div class="pc-item"><span>Employee Name</span><strong id="lf-name"></strong></div>
+              <div class="pc-item"><span>Organization</span><strong>Deweg Engineering Pvt. Ltd.</strong></div>
+              <div class="pc-item"><span>Department</span><strong id="lf-dept"></strong></div>
+              <div class="pc-item" style="grid-column:1/-1"><span>Division</span><strong id="lf-div"></strong></div>
+            </div>
+
+            <div class="bp-title" style="color:var(--muted);margin-top:18px">Available Leave Balance</div>
+            <div class="bal-stack">
+              <div class="bp-card" style="--c:#7c3aed;--cbg:#ede9fe">
+                <div class="bp-top"><span class="bp-cat">PL</span><span class="bp-full">Privilege Leave</span>
+                  <span class="bp-val" style="margin-left:auto;font-size:17px"><span id="val-pl">—</span><small> / <span id="tot-pl">18</span></small></span></div>
+                <div class="bp-bar"><i id="bar-pl" style="width:0%"></i></div>
+              </div>
+              <div class="bp-card" style="--c:#16a34a;--cbg:#dcfce7">
+                <div class="bp-top"><span class="bp-cat">CL</span><span class="bp-full">Casual Leave</span>
+                  <span class="bp-val" style="margin-left:auto;font-size:17px"><span id="val-cl">—</span><small> / <span id="tot-cl">12</span></small></span></div>
+                <div class="bp-bar"><i id="bar-cl" style="width:0%"></i></div>
+              </div>
+              <div class="bp-card" style="--c:#ea580c;--cbg:#ffedd5">
+                <div class="bp-top"><span class="bp-cat">AL</span><span class="bp-full">Annual Leave</span>
+                  <span class="bp-val" style="margin-left:auto;font-size:17px"><span id="val-al">—</span><small> / <span id="tot-al">10</span></small></span></div>
+                <div class="bp-bar"><i id="bar-al" style="width:0%"></i></div>
+              </div>
+            </div>
+          </div>
+            </div><!-- /sc-body -->
+          </div><!-- /sc-collapse inner -->
+        </div><!-- /sc-collapse -->
+      </aside>
+      </div><!-- /leave-layout -->
+    </section>
+
+    <!-- ============ LEAVE REPORT ============ -->
+    <section class="view" id="view-report">
+      <div class="topbar">
+        <div>
+          <div class="crumb">Home / Leave Report</div>
+          <h2>Leave Report</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline btn-sm">⬇ Export Excel</button>
+          <button class="btn btn-outline btn-sm">🖨 Print</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head"><span class="bar"></span><h3>Search Filters</h3><span class="line"></span></div>
+        <div class="toolbar">
+          <div class="field"><label>Start Date</label><input class="input" type="date" id="rp-start"></div>
+          <div class="field"><label>End Date</label><input class="input" type="date" id="rp-end"></div>
+          <div class="field"><label>Status</label>
+            <select class="select" id="rp-status" onchange="renderReport()"><option value="">All</option><option>Pending</option><option>Approved</option><option>Rejected</option></select>
+          </div>
+          <div class="field"><label>Leave Type</label>
+            <select class="select" id="rp-type" onchange="renderReport()"><option value="">All</option><option>PL</option><option>CL</option><option>AL</option></select>
+          </div>
+          <button class="btn btn-dark" onclick="renderReport()">🔍 Search</button>
+        </div>
+
+        <div class="table-wrap" style="margin-top:8px">
+          <table>
+            <thead><tr>
+              <th>Request No</th><th>Requested For</th><th>Leave Type</th><th>Start Date</th><th>End Date</th><th>No of Days</th><th>Status</th><th>Requested By</th>
+            </tr></thead>
+            <tbody id="report-table"></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div class="entries">Show
+            <select class="select entries" id="rp-entries"><option>10</option><option>25</option><option>50</option></select>
+            entries
+          </div>
+          <div class="pages">
+            <button class="page-btn">«</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">»</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONFIGURATION ============ -->
+    <section class="view" id="view-config">
+      <div class="topbar">
+        <div>
+          <div class="crumb">Home / Configuration</div>
+          <h2>Configuration</h2>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:22px">
+        <div class="section-head"><span class="bar"></span><h3>Leave Policy</h3><span class="line"></span></div>
+        <div class="card-sub">Annual entitlements applied to every employee's leave balance.</div>
+        <div class="form-grid">
+          <div class="field"><label>Privilege Leave (PL) / year</label><input class="input" type="number" id="cfg-pl" value="18"></div>
+          <div class="field"><label>Casual Leave (CL) / year</label><input class="input" type="number" id="cfg-cl" value="12"></div>
+          <div class="field"><label>Annual Leave (AL) / year</label><input class="input" type="number" id="cfg-al" value="10"></div>
+          <div class="field"><label>Financial Year</label><input class="input" value="Jan 2026 – Dec 2026"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:22px">
+        <div class="section-head"><span class="bar"></span><h3>Additional Employee Fields</h3><span class="line"></span></div>
+        <div class="card-sub">Enable optional fields on the Employee Master form.</div>
+        <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+          <label class="cfg-check"><input type="checkbox" id="cfg-f-mobile" onchange="applyExtraFields()"> Mobile Number</label>
+          <label class="cfg-check"><input type="checkbox" id="cfg-f-desig" onchange="applyExtraFields()"> Designation</label>
+          <label class="cfg-check"><input type="checkbox" id="cfg-f-doj" onchange="applyExtraFields()"> Date of Joining</label>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-head"><span class="bar"></span><h3>Workflow &amp; Organization</h3><span class="line"></span></div>
+        <div class="form-grid">
+          <div class="field"><label>Approval Flow</label>
+            <select class="select"><option>Reporting Manager → HR</option><option>Reporting Manager only</option></select>
+          </div>
+          <div class="field"><label>Half Day Allowed</label>
+            <select class="select"><option>Yes</option><option>No</option></select>
+          </div>
+          <div class="field"><label>Organization Name</label><input class="input" value="Deweg Engineering Pvt. Ltd."></div>
+          <div class="field"><label>Working Days / Week</label><input class="input" type="number" value="5"></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:22px">
+          <button class="btn btn-primary" onclick="saveConfig()">Save Settings</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HELP & SUPPORT ============ -->
+    <section class="view" id="view-help">
+      <div class="topbar">
+        <div>
+          <div class="crumb">Home / Help &amp; Support</div>
+          <h2>Help &amp; Support</h2>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat" style="--acc:var(--info)"><div class="lbl">HR Helpdesk</div><div class="val" style="font-size:18px">hr@deweg.com</div><div class="sub">Mon–Fri · 9:00 to 18:00</div></div>
+        <div class="stat" style="--acc:var(--gold)"><div class="lbl">IT Support</div><div class="val" style="font-size:18px">Ext. 4021</div><div class="sub">Login &amp; access issues</div></div>
+        <div class="stat" style="--acc:var(--success)"><div class="lbl">Payroll Queries</div><div class="val" style="font-size:18px">payroll@deweg.com</div><div class="sub">Leave encashment &amp; LOP</div></div>
+      </div>
+      <div class="card">
+        <div class="section-head"><span class="bar"></span><h3>Frequently Asked Questions</h3><span class="line"></span></div>
+        <div class="pc-grid" style="border:1px solid var(--border);border-radius:12px;overflow:hidden">
+          <div class="pc-item" style="grid-column:1/-1"><span>How do I apply for leave?</span><strong>Go to Leave Application → pick a category and dates → days auto-calculate → submit. You can speak your reason using the microphone button.</strong></div>
+          <div class="pc-item" style="grid-column:1/-1"><span>Who approves my leave?</span><strong>Your reporting manager configured in your employee master record receives the request instantly.</strong></div>
+          <div class="pc-item" style="grid-column:1/-1"><span>Where can I see my past leave?</span><strong>Leave Report shows all your requests with status. Managers can view the full team history.</strong></div>
+          <div class="pc-item" style="grid-column:1/-1"><span>Forgot your password?</span><strong>Contact IT Support (Ext. 4021) — credentials are issued by HR only.</strong></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ======= ADD EMPLOYEE MODAL ======= -->
+<div class="modal-bg" id="emp-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Add New Employee</h3>
+      <button class="close-x" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field"><label>Employee Number</label><input class="input" value="Auto Calculate Number" readonly></div>
+        <div class="field"><label>Employee Name <span class="req">*</span></label><input class="input" placeholder="Full name"></div>
+        <div class="field"><label>Division <span class="req">*</span></label>
+          <select class="select"><option value="">— Select —</option><option>Engineering</option><option>Manufacturing</option><option>Quality</option><option>Projects</option></select>
+        </div>
+        <div class="field"><label>Department <span class="req">*</span></label>
+          <select class="select"><option value="">— Select —</option><option>Mechanical</option><option>Electrical</option><option>Civil</option><option>Design</option><option>HR &amp; Admin</option><option>Finance</option></select>
+        </div>
+        <div class="field"><label>Email ID <span class="req">*</span></label><input class="input" type="email" placeholder="name@deweg.com"></div>
+        <div class="field"><label>Reporting Manager <span class="req">*</span></label>
+          <select class="select"><option value="">— Select —</option><option>R. Sharma</option><option>A. Iyer</option><option>P. Menon</option></select>
+        </div>
+        <div class="field"><label>Status <span class="req">*</span></label>
+          <select class="select"><option>Online</option><option>Off Line</option></select>
+        </div>
+        <div class="field" data-extra="mobile"><label>Mobile Number</label><input class="input" type="tel" placeholder="10-digit mobile" maxlength="10"></div>
+        <div class="field" data-extra="desig"><label>Designation</label>
+          <select class="select"><option value="">— Select —</option><option>Engineer</option><option>Senior Engineer</option><option>Design Lead</option><option>Quality Inspector</option><option>Project Manager</option></select>
+        </div>
+        <div class="field" data-extra="doj"><label>Date of Joining</label><input class="input" type="date"></div>
+      </div>
+      <p class="hint" style="margin-top:14px">Optional fields are managed from Configuration → Additional Employee Fields.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEmployee()">Save Employee</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======= MOBILE SIDEBAR OVERLAY ======= -->
+<div class="sb-overlay" onclick="toggleSidebar(false)"></div>
+
+<!-- ======= TOAST ======= -->
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
